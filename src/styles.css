@@ -5,15 +5,44 @@
 }
 
 body {
-    background-color: #f3f3f3;
     margin: 0;
+    background-color: #f3f3f3;
+}
+
+.page-sidebar {
+    width: 200px;
+    background-color: #f8f9fa;
+    border-right: 1px solid #e0e0e0;
+    padding: 20px;
+    height: calc(100vh - 80px);
+    position: fixed;
+    left: 0;
+    top: 80px;
+    z-index: 2;
+}
+
+.page-item {
+    padding: 12px;
+    border-radius: 4px;
+    margin-bottom: 8px;
+    cursor: pointer;
+    font-family: "Nunito", sans-serif;
+    color: #444;
+}
+
+.editor-content {
+    margin-left: 200px;
+    padding: 20px 40px;
+    background-color: #f3f3f3;
+    min-height: calc(100vh - 80px);
+    margin-top: 80px;
 }
 
 .container .ql-editor {
     width: 8.5in;
     min-height: 11in;
     padding: 1in;
-    margin: 1rem;
+    margin: 1rem auto;
     box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.5);
     background-color: white;
 }
@@ -24,7 +53,7 @@ body {
     justify-content: center;
 }
 
-.container .ql-toolbar.ql-snow {
+.ql-toolbar.ql-snow {
     display: flex;
     justify-content: center;
     position: sticky;
@@ -33,27 +62,4 @@ body {
     background-color: #f3f3f3;
     border: none;
     box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.5);
-}
-
-@page {
-    margin: 1in;
-}
-
-@media print {
-    body {
-        background: none;
-    }
-
-    .container .ql-editor {
-        width: 6.5in;
-        height: 9in;
-        padding: 0;
-        margin: 0;
-        box-shadow: none;
-        align-self: flex-start;
-    }
-
-    .container .ql-toolbar.ql-snow {
-        display: none;
-    }
 }

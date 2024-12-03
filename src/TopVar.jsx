@@ -3,26 +3,77 @@ import Quill from "quill";
 import "quill/dist/quill.snow.css";
 import { io } from "socket.io-client";
 import { useParams } from "react-router-dom";
-import MenuBar from "./TopVar.jsx";
-import "./styles.css";
 
-// Add Material Icons CDN
 const materialIconsCDN = document.createElement("link");
 materialIconsCDN.rel = "stylesheet";
 materialIconsCDN.href =
   "https://fonts.googleapis.com/icon?family=Material+Icons";
 document.head.appendChild(materialIconsCDN);
 
-// Add custom styles for undo/redo buttons
+const nunitoFont = document.createElement("link");
+nunitoFont.rel = "stylesheet";
+nunitoFont.href =
+  "https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600&display=swap";
+document.head.appendChild(nunitoFont);
+
+const MenuBar = () => (
+  <div
+    id="top-bar"
+    className="menu-bar"
+    style={{
+      padding: "5px 10px",
+      display: "flex",
+      gap: "20px",
+    }}
+  >
+    <span>File</span>
+    <span>Edit</span>
+    <span>View</span>
+    <span>Insert</span>
+    <span>Format</span>
+    <span>Tools</span>
+    <span>Extensions</span>
+    <span>Help</span>
+  </div>
+);
+
+// Update the styles
 const customStyles = `
-.ql-toolbar button.ql-undo:before {
-    font-family: 'Material Icons';
-    content: 'undo';
-}
-.ql-toolbar button.ql-redo:before {
-    font-family: 'Material Icons';
-    content: 'redo';
-}`;
+  #top-bar{
+  background-color: #f8f9fa;
+  border-bottom: none;
+  }
+
+  .ql-toolbar button.ql-undo:before {
+      font-family: 'Material Icons';
+      content: 'undo';
+  }
+  .ql-toolbar button.ql-redo:before {
+      font-family: 'Material Icons';
+      content: 'redo';
+  }
+
+
+
+  .menu-bar span {
+    font-family: 'Nunito', sans-serif;
+    cursor: pointer;
+    user-select: none;
+    font-size: 14px;
+    color: #444;
+
+  }
+
+  .menu-bar span:hover {
+    color: #1a73e8;
+  }
+  .ql-toolbar.ql-snow {
+    box-shadow: none;
+    border-top: none;
+  }
+
+
+`;
 
 const styleSheet = document.createElement("style");
 styleSheet.innerText = customStyles;
@@ -144,9 +195,8 @@ export default function Editor() {
   }, []);
 
   return (
-    <>
+    <div>
       <MenuBar />
-      <div className="container" ref={wrapperRef}></div>
-    </>
+    </div>
   );
 }
