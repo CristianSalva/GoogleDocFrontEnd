@@ -33,21 +33,16 @@ const TOOLBAR_OPTIONS = [
   ["undo", "redo"],
   [{ header: [1, 2, 3, 4, 5, 6, false] }],
   [{ font: [] }],
-  [{ size: ["small", false, "large", "huge"] }],
+  [{ size: ["small", "normal", "large", "huge"] }],
   ["bold", "italic", "underline", "strike"],
   ["blockquote", "code-block"],
   [{ script: "sub" }, { script: "super" }],
   [{ color: [] }, { background: [] }],
   [{ list: "ordered" }, { list: "bullet" }],
   [{ indent: "-1" }, { indent: "+1" }],
-  [{ direction: "rtl" }],
   [{ align: [] }],
-  ["link", "image", "video", "formula"],
-  [{ header: "1" }, { header: "2" }],
+  ["link", "image", "video"],
   ["clean"],
-  ["code"],
-  [{ table: [] }],
-  ["emoji"],
 ];
 
 export default function Editor() {
@@ -108,13 +103,128 @@ export default function Editor() {
   const wrapperRef = useCallback((wrapper) => {
     if (wrapper == null) return;
     wrapper.innerHTML = "";
+
+    // Create custom toolbar HTML
+    const toolbar = document.createElement("div");
+    toolbar.id = "toolbar";
+    toolbar.innerHTML = `
+         <span class="ql-formats">
+           <button class="ql-undo"></button>
+           <button class="ql-redo"></button>
+         </span>
+
+         <span class="ql-formats">
+           <select class="ql-header">
+             <option value="1">Heading 1</option>
+             <option value="2">Heading 2</option>
+             <option value="3">Heading 3</option>
+             <option value="4">Heading 4</option>
+             <option value="5">Heading 5</option>
+             <option value="6">Heading 6</option>
+             <option value="false">Normal</option>
+           </select>
+         </span>
+
+         <span class="ql-formats">
+           <select class="ql-font"></select>
+         </span>
+
+         <span class="ql-formats">
+           <select class="ql-size">
+             <option value="8px">8px</option>
+             <option value="10px">10px</option>
+             <option value="12px">12px</option>
+             <option value="14px">14px</option>
+             <option value="16px">16px</option>
+             <option value="18px">18px</option>
+             <option value="20px">20px</option>
+             <option value="24px">24px</option>
+             <option value="32px">32px</option>
+             <option value="48px">48px</option>
+           </select>
+         </span>
+
+         <span class="ql-formats">
+           <button class="ql-bold"></button>
+           <button class="ql-italic"></button>
+           <button class="ql-underline"></button>
+           <button class="ql-strike"></button>
+         </span>
+
+         <span class="ql-formats">
+           <button class="ql-blockquote"></button>
+           <button class="ql-code-block"></button>
+         </span>
+
+         <span class="ql-formats">
+           <button class="ql-script" value="sub"></button>
+           <button class="ql-script" value="super"></button>
+         </span>
+
+         <span class="ql-formats">
+           <select class="ql-color"></select>
+           <select class="ql-background"></select>
+         </span>
+
+         <span class="ql-formats">
+           <button class="ql-list" value="ordered"></button>
+           <button class="ql-list" value="bullet"></button>
+         </span>
+
+         <span class="ql-formats">
+           <button class="ql-indent" value="-1"></button>
+           <button class="ql-indent" value="+1"></button>
+         </span>
+
+         <span class="ql-formats">
+           <select class="ql-align"></select>
+         </span>
+
+         <span class="ql-formats">
+           <button class="ql-link"></button>
+           <button class="ql-image"></button>
+           <button class="ql-video"></button>
+         </span>
+
+         <span class="ql-formats">
+           <button class="ql-clean"></button>
+         </span>
+       `;
+
+    // Add the styles for the toolbar
+    const style = document.createElement("style");
+    style.textContent = `
+        .toolbar-divider {
+          height: 24px;
+          width: 1px;
+          background-color: #D1D5DB;
+          margin: 0 8px;
+          display: inline-block;
+          vertical-align: middle;
+        }
+
+        #toolbar {
+          display: flex;
+          align-items: center;
+          padding: 8px;
+          gap: 8px;
+          border-bottom: 1px solid #ccc;
+        }
+      `;
+    document.head.appendChild(style);
+
+    // Create editor div
     const editor = document.createElement("div");
-    wrapper.append(editor);
+
+    // Important: Add toolbar before editor
+    wrapper.appendChild(toolbar);
+    wrapper.appendChild(editor);
+
     const q = new Quill(editor, {
       theme: "snow",
       modules: {
         toolbar: {
-          container: TOOLBAR_OPTIONS,
+          container: "#toolbar",
           handlers: {
             undo: function () {
               this.quill.history.undo();
@@ -138,6 +248,7 @@ export default function Editor() {
       debug: "info",
       bounds: editor,
     });
+
     q.disable();
     q.setText("Loading...");
     setQuill(q);

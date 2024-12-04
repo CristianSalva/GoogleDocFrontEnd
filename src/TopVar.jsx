@@ -3,6 +3,7 @@ import Quill from "quill";
 import "quill/dist/quill.snow.css";
 import { io } from "socket.io-client";
 import { useParams } from "react-router-dom";
+import docImage from "./docIcon.svg";
 
 const materialIconsCDN = document.createElement("link");
 materialIconsCDN.rel = "stylesheet";
@@ -21,19 +22,96 @@ const MenuBar = () => (
     id="top-bar"
     className="menu-bar"
     style={{
-      padding: "5px 10px",
+      padding: "10px",
       display: "flex",
       gap: "20px",
     }}
   >
-    <span>File</span>
-    <span>Edit</span>
-    <span>View</span>
-    <span>Insert</span>
-    <span>Format</span>
-    <span>Tools</span>
-    <span>Extensions</span>
-    <span>Help</span>
+    <img src={docImage} alt="Google Docs" />
+    <div>
+      <span
+        style={{
+          fontSize: "14px",
+          fontWeight: 999,
+          marginBottom: "10px",
+        }}
+      >
+        Mutual NDA
+      </span>
+      <div>
+        <span
+          style={{
+            marginRight: "16px",
+          }}
+        >
+          File
+        </span>
+
+        <span
+          style={{
+            marginRight: "16px",
+          }}
+        >
+          Edit
+        </span>
+        <span
+          style={{
+            marginRight: "16px",
+          }}
+        >
+          View
+        </span>
+        <span
+          style={{
+            marginRight: "16px",
+          }}
+        >
+          Insert
+        </span>
+        <span
+          style={{
+            marginRight: "16px",
+          }}
+        >
+          Format
+        </span>
+        <span
+          style={{
+            marginRight: "16px",
+          }}
+        >
+          Tools
+        </span>
+        <span
+          style={{
+            marginRight: "16px",
+          }}
+        >
+          Extensions
+        </span>
+        <span
+          style={{
+            marginRight: "16px",
+          }}
+        >
+          Help
+        </span>
+      </div>
+    </div>
+    <button
+      style={{
+        marginLeft: "auto",
+        paddingLeft: "40px",
+        paddingRight: "40px",
+        paddingTop: "10px",
+        paddingBottom: "10px",
+        backgroundColor: "#e7f2ff",
+        border: "2px solid #0a4e9c",
+        borderRadius: "17px",
+      }}
+    >
+      Save
+    </button>
   </div>
 );
 
