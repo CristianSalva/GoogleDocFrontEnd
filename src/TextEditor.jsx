@@ -129,8 +129,10 @@ export default function Editor() {
            <select class="ql-font"></select>
          </span>
 
-         <span class="ql-formats">
-           <select class="ql-size">
+
+
+         <span  class="ql-formats ">
+           <select  class="ql-size">
              <option value="8px">8px</option>
              <option value="10px">10px</option>
              <option value="12px">12px</option>
